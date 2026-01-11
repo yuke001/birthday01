@@ -2,6 +2,7 @@ import { gsap } from "gsap";
 import { useEffect, useState } from "react";
 import "./CelebrationPage.css";
 import Confetti from "./Confetti";
+import HeartAnimation from './HeartAnimation';
 
 // Generate heart positions outside component to avoid render issues
 const generateHeartPositions = () =>
@@ -266,6 +267,7 @@ function CelebrationPage({ onComplete, musicPlayerRef }) {
   return (
     <div className={`celebration-page ${lightsOn ? "lights-on" : ""}`}>
       {/* Confetti Effect */}
+       {lightsOn && <HeartAnimation />}
       {showConfetti && <Confetti />}
 
       {/* Floating hearts background */}

@@ -13,10 +13,10 @@ function MessageCard({ isActive }) {
   const curtainHintRef = useRef(null);
   const messageContentRef = useRef(null);
 
-  const message = `Charu....❤️,
+  const message = `....❤️,
 
 
-    my msg to charu
+    my msg to 
 
 
 
