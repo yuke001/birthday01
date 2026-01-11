@@ -14,6 +14,7 @@ gsap.registerPlugin(ScrollToPlugin);
 
 function App() {
   const [currentPage, setCurrentPage] = useState(1); // Start at 1 for Countdown page
+  const [showSneakPeek, setShowSneakPeek] = useState(false);
 
   // ⚠️ FOR TESTING: Comment out lines 18-21 to reset on every reload
   // Check localStorage to persist birthday reached state
@@ -75,6 +76,7 @@ function App() {
 
   const handleBirthdayReached = () => {
     setBirthdayReached(true);
+    setShowSneakPeek(false);
     localStorage.setItem("birthdayReached", "true"); // Persist to localStorage
     setShowEffects(true);
     // Stop effects after some time
@@ -100,7 +102,7 @@ function App() {
               </>
             ) : (
               <>
-                Counting down to <span className="highlight">Charu's</span>{" "}
+                Counting down to <span className="highlight">*****'s</span>{" "}
                 special day 🎂
               </>
             )}
@@ -130,6 +132,15 @@ function App() {
         >
           🎀 Let's Celebrate
         </button>
+
+        {!birthdayReached && (
+          <button
+            className="small-sneak-btn"
+            onClick={() => setShowSneakPeek(true)} // <--- This MUST say setShowSneakPeek(true)
+          >
+            Sneak 👀
+          </button>
+        )}
       </div>
 
       {/* PAGE 2: Celebration/QNA Page */}
@@ -177,6 +188,31 @@ function App() {
 
       {/* Effects */}
       {showEffects && <Effects />}
+
+      {/* SNEAK PEEK MODAL */}
+      {showSneakPeek && (
+        <div className="modal-overlay" onClick={() => setShowSneakPeek(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-emoji">💖</div>
+            <h3>Nice Try, Madam Ji!</h3>
+            <p>
+              wait pannu enna avasaram! Birthday surprise-ku munnaadi
+              paakalaam nu ninaikkiryaa🙄?
+            </p>
+            <p>
+              surprise-oda magic poidum. So, please wait until the big
+              day!
+            </p>
+           
+            <button
+              className="modal-close"
+              onClick={() => setShowSneakPeek(false)}
+            >
+              Fine, I'll Wait... 🙄
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

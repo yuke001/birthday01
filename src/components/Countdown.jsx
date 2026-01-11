@@ -15,7 +15,7 @@ function Countdown({ onBirthdayReached, birthdayReached }) {
       return;
     }
 
-    // const targetDate = new Date("2026-01-04T17:36:00");
+    // const targetDate = new Date("2026-01-11T23:50:00");
        const targetDate = new Date("2026-01-23T00:00:00");
 
 
