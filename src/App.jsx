@@ -16,16 +16,15 @@ gsap.registerPlugin(ScrollToPlugin);
 function App() {
   const [currentPage, setCurrentPage] = useState(1); // Start at 1 for Countdown page
   const [showSneakPeek, setShowSneakPeek] = useState(false);
+  
+  // New state to toggle between the Question and the Image Reveal
+  const [sneakPeekReveal, setSneakPeekReveal] = useState(false);
 
-  // ⚠️ FOR TESTING: Comment out lines 18-21 to reset on every reload
   // Check localStorage to persist birthday reached state
   const [birthdayReached, setBirthdayReached] = useState(() => {
     const saved = localStorage.getItem("birthdayReached");
     return saved === "true";
   });
-
-  // ✅ FOR TESTING: Uncomment this line to always show countdown on reload
-  // const [birthdayReached, setBirthdayReached] = useState(false);
 
   const [showEffects, setShowEffects] = useState(false);
 
@@ -84,6 +83,12 @@ function App() {
     setTimeout(() => setShowEffects(false), 10000);
   };
 
+  // Function to open Sneak Peek and reset it to the question
+  const openSneakPeek = () => {
+    setSneakPeekReveal(false);
+    setShowSneakPeek(true);
+  };
+
   return (
     <div className="app">
       <MusicPlayer ref={musicPlayerRef} />
@@ -95,7 +100,6 @@ function App() {
         className={`page ${currentPage === 1 ? "active" : ""}`}
         style={{ visibility: currentPage === 1 ? "visible" : "hidden" }}
       >
-        {/* ✅ Only show the trail if birthday is NOT reached yet */}
         {!birthdayReached && <HeartTrail />}
 
         <section className="hero">
@@ -140,7 +144,7 @@ function App() {
         {!birthdayReached && (
           <button
             className="small-sneak-btn"
-            onClick={() => setShowSneakPeek(true)} // <--- This MUST say setShowSneakPeek(true)
+            onClick={openSneakPeek}
           >
             Sneak 👀
           </button>
@@ -201,20 +205,60 @@ function App() {
       {showSneakPeek && (
         <div className="modal-overlay" onClick={() => setShowSneakPeek(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-emoji">💖</div>
-            <h3>Nice Try, Madam Ji!</h3>
-            <p>
-              wait pannu enna avasaram! Birthday surprise-ku munnaadi paakalaam
-              nu ninaikkiryaa🙄?
-            </p>
-            <p>surprise-oda magic poidum. So, please wait until the big day!</p>
+            
+            {!sneakPeekReveal ? (
+              /* STEP 1: The Question */
+              <div className="sneak-step-1">
+                <div className="modal-emoji">🤨</div>
+                <h3>Do you really want to see the surprise?</h3>
+                <div className="modal-button-group" style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '20px' }}>
+                  <button 
+                    className="modal-btn-yes" 
+                    style={{ background: '#ff4d6d', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '20px', cursor: 'pointer' }}
+                    onClick={() => setSneakPeekReveal(true)}
+                  >
+                    Yes! 😍
+                  </button>
+                  <button 
+                    className="modal-btn-no" 
+                    style={{ background: '#ddd', color: '#333', border: 'none', padding: '10px 20px', borderRadius: '20px', cursor: 'pointer' }}
+                    onClick={() => setShowSneakPeek(false)}
+                  >
+                    No, I'll wait 😇
+                  </button>
+                </div>
+              </div>
+            ) : (
+              /* STEP 2: The Reveal */
+              <div className="sneak-step-2">
+                <div className="modal-emoji"> 😜</div>
+                <h3>Nice Try, Madam Ji!</h3>
+                
+                {/* Image/GIF Container */}
+                <div style={{ margin: '15px 0' }}>
+                    <img 
+                      src="/public/images/NoWay.gif" 
+                      alt="Prank" 
+                      style={{ width: '100%', borderRadius: '10px', maxWidth: '250px' }}
+                    />
+                </div>
 
-            <button
-              className="modal-close"
-              onClick={() => setShowSneakPeek(false)}
-            >
-              Fine, I'll Wait... 🙄
-            </button>
+                <p>
+                  Wait pannu enna avasaram! surprise-ku munnaadi paakalaam
+                  nu ninaikkiryaa🙄?
+                </p>
+                <p>Please wait until the big day!</p>
+
+                <button
+                  className="modal-close"
+                  onClick={() => setShowSneakPeek(false)}
+                  style={{ marginTop: '15px' }}
+                >
+                  Fine, I'll Wait... 🙄
+                </button>
+              </div>
+            )}
+            
           </div>
         </div>
       )}
