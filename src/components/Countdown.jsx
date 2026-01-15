@@ -85,19 +85,14 @@ function Countdown({ onBirthdayReached, birthdayReached }) {
       </div>
 
       {/* ⚠️ TEST BUTTON - delete it from here⚠️ */}
-   <button
+      {/* <button
         className="test-button"
         onClick={onBirthdayReached}
         title="Skip countdown and see celebration"
       >
         🎉 Test Celebration
-<<<<<<< HEAD
       </button> */}
-=======
-      </button> 
->>>>>>> 9fc5b8e239d5a40a15e4ceaaeef3d00c27c82fce
 
-      
       {/* ⚠️ END TEST BUTTON - DELETE UP TO HERE ⚠️ */}
     </section>
   );

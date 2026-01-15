@@ -111,7 +111,7 @@ function App() {
               </>
             )}
           </h1>
-          <p>Your personalized message goes here 💗</p>
+          <p>Some moments are worth waiting for 💗</p>
         </section>
 
         <Countdown
@@ -187,8 +187,9 @@ function App() {
         <section className="final">
           <h2 className="final-message">💖 Forever Yours — yuke... 💖</h2>
           <p className="final-subtitle">
-            I hope your birthday is as sweet as you 🍰🍬✨ <br />Have a blast 🎉🔥💃 <br />
-           <b> Happy Birthday!</b> 🎂🥳🎈💖 ✨
+            I hope your birthday is as sweet as you 🍰🍬✨ <br />
+            Have a blast 🎉🔥💃 <br />
+            <b> Happy Birthday!</b> 🎂🥳🎈💖 ✨
           </p>
         </section>
       </div>
