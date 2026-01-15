@@ -15,9 +15,6 @@ function Countdown({ onBirthdayReached, birthdayReached }) {
       return;
     }
 
-    // DUMMY DATE FOR TESTING PURPOSES
-    // const targetDate = new Date("2026-01-11T23:50:00");
-
     // charu bdy
     const targetDate = new Date("2026-01-23T00:00:00");
 
@@ -88,13 +85,17 @@ function Countdown({ onBirthdayReached, birthdayReached }) {
       </div>
 
       {/* ⚠️ TEST BUTTON - delete it from here⚠️ */}
-      {/* <button
+   <button
         className="test-button"
         onClick={onBirthdayReached}
         title="Skip countdown and see celebration"
       >
         🎉 Test Celebration
+<<<<<<< HEAD
       </button> */}
+=======
+      </button> 
+>>>>>>> 9fc5b8e239d5a40a15e4ceaaeef3d00c27c82fce
 
       
       {/* ⚠️ END TEST BUTTON - DELETE UP TO HERE ⚠️ */}
