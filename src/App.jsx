@@ -237,7 +237,7 @@ function App() {
                 {/* Image/GIF Container */}
                 <div style={{ margin: '15px 0' }}>
                     <img 
-                      src="/public/images/NoWay.gif" 
+                      src="/public/images/NoWay.png" 
                       alt="Prank" 
                       style={{ width: '100%', borderRadius: '10px', maxWidth: '250px' }}
                     />
