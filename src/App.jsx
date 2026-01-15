@@ -9,6 +9,7 @@ import Gallery from "./components/Gallery";
 import Hearts from "./components/Hearts";
 import MessageCard from "./components/MessageCard";
 import MusicPlayer from "./components/MusicPlayer";
+import HeartTrail from "./components/HeartTrail";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -94,6 +95,9 @@ function App() {
         className={`page ${currentPage === 1 ? "active" : ""}`}
         style={{ visibility: currentPage === 1 ? "visible" : "hidden" }}
       >
+        {/* ✅ Only show the trail if birthday is NOT reached yet */}
+        {!birthdayReached && <HeartTrail />}
+
         <section className="hero">
           <h1 id="heroTitle">
             {birthdayReached ? (
@@ -102,7 +106,7 @@ function App() {
               </>
             ) : (
               <>
-                Counting down to <span className="highlight">*****'s</span>{" "}
+                Counting down to <span className="highlight">Charu's</span>{" "}
                 special day 🎂
               </>
             )}
@@ -165,9 +169,9 @@ function App() {
           ← Back
         </button>
         <MessageCard isActive={currentPage === 3} />
-        {/* <button className="page-nav-btn" onClick={() => goToPage(4)}>
-          📸 View Our Memories
-        </button> */}
+        <button className="page-nav-btn" onClick={() => goToPage(4)}>
+          📸 View Memories
+        </button>
       </div>
 
       {/* PAGE 4: Gallery */}
@@ -181,8 +185,11 @@ function App() {
         </button>
         <Gallery isActive={currentPage === 4} />
         <section className="final">
-          <h2 className="final-message">💖 Forever Yours — [Your Name] 💖</h2>
-          <p className="final-subtitle">Your personalized closing message ✨</p>
+          <h2 className="final-message">💖 Forever Yours — yuke... 💖</h2>
+          <p className="final-subtitle">
+            I hope your birthday is as sweet as you 🍰🍬✨ <br />Have a blast 🎉🔥💃 <br />
+           <b> Happy Birthday!</b> 🎂🥳🎈💖 ✨
+          </p>
         </section>
       </div>
 
@@ -196,14 +203,11 @@ function App() {
             <div className="modal-emoji">💖</div>
             <h3>Nice Try, Madam Ji!</h3>
             <p>
-              wait pannu enna avasaram! Birthday surprise-ku munnaadi
-              paakalaam nu ninaikkiryaa🙄?
+              wait pannu enna avasaram! Birthday surprise-ku munnaadi paakalaam
+              nu ninaikkiryaa🙄?
             </p>
-            <p>
-              surprise-oda magic poidum. So, please wait until the big
-              day!
-            </p>
-           
+            <p>surprise-oda magic poidum. So, please wait until the big day!</p>
+
             <button
               className="modal-close"
               onClick={() => setShowSneakPeek(false)}
