@@ -13,16 +13,19 @@ function MessageCard({ isActive }) {
   const curtainHintRef = useRef(null);
   const messageContentRef = useRef(null);
 
-  const message = `....❤️,
+  const message = `Charu....💙,
 
+   I hope today brings you the kind of happiness you quietly bring into other people’s lives — especially mine. 🌼💫
 
-    my msg to 
+   Happy Birthday to a sweet soul 🎉💖 You deserve every good thing that comes your way. Have a blast! 🎂✨
+
+   I’m really grateful for you and everything we’ve shared 🤍🌿 You’re truly special to me.
 
 
 
 Happy Birthday! 🎉
 
-— Yuke...🥰🥰🥰`;
+— yuke...🥰🥰🥰`;
 
   // Handle page transitions
   useEffect(() => {
@@ -56,7 +59,7 @@ Happy Birthday! 🎉
               duration: 0.5,
               ease: "power2.inOut",
             },
-            0.3
+            0.3,
           );
         }
 
@@ -105,7 +108,7 @@ Happy Birthday! 🎉
           duration: duration,
           ease: "power3.inOut",
         },
-        0
+        0,
       );
 
       timeline.to(
@@ -116,7 +119,7 @@ Happy Birthday! 🎉
           duration: duration,
           ease: "power3.inOut",
         },
-        0
+        0,
       );
 
       // Fade out curtains
@@ -127,7 +130,7 @@ Happy Birthday! 🎉
           duration: 0.5,
           delay: isMobile ? 0.8 : 1,
         },
-        0
+        0,
       );
 
       // Reveal message content with smooth animation
@@ -140,7 +143,7 @@ Happy Birthday! 🎉
           ease: "back.out(1.2)",
           delay: isMobile ? 0.6 : 0.8,
         },
-        0
+        0,
       );
     }
   };
