@@ -232,7 +232,7 @@ function App() {
               /* STEP 2: The Reveal */
               <div className="sneak-step-2">
                 <div className="modal-emoji"> 😜</div>
-                <h3>Nice Try, Madam Ji!</h3>
+                <h3>Nice Try...!</h3>
                 
                 {/* Image/GIF Container */}
                 <div style={{ margin: '15px 0' }}>
