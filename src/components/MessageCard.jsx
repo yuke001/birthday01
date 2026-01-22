@@ -21,8 +21,6 @@ function MessageCard({ isActive }) {
 
    I’m really grateful for you and everything we’ve shared 🤍🌿 You’re truly special to me.
 
-
-
 Happy Birthday! 🎉
 
 — yuke...🥰🥰🥰`;

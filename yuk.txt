@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Yes or No</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Do you like this page?</h1>
+
+  <button class="yes-button" onclick="handleYesClick()">Yes</button>
+  <button class="no-button" onclick="handleNoClick()">No</button>
+
+  <script>
+    const messages = [
+      "Are you sure?",
+      "Really sure?",
+      "Think again!",
+      "Come on 😄",
+      "Just say yes!"
+    ];
+
+    let messageIndex = 0;
+
+    function handleNoClick() {
+      const noButton = document.querySelector('.no-button');
+      const yesButton = document.querySelector('.yes-button');
+
+      // Change No button text
+      noButton.textContent = messages[messageIndex];
+
+      // Go to next message
+      messageIndex = (messageIndex + 1) % messages.length;
+
+      // Increase Yes button size
+      const currentSize = parseFloat(
+        window.getComputedStyle(yesButton).fontSize
+      );
+      yesButton.style.fontSize = (currentSize * 1.3) + "px";
+    }
+
+    function handleYesClick() {
+      window.location.href = "yes_page.html";
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+----------------------
+
+music player --- 
+
+
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
+import "./MusicPlayer.css";
+
+const MusicPlayer = forwardRef((props, ref) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const toggleMusic = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      if (isPlaying) {
+        audio.pause();
+        setIsPlaying(false);
+      } else {
+        audio
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((error) => {
+            console.error("Error playing audio:", error);
+            setIsPlaying(false);
+          });
+      }
+    }
+  };
+
+  // Expose play/pause methods to parent components
+  useImperativeHandle(ref, () => ({
+    play: () => {
+      const audio = audioRef.current;
+      if (audio && !isPlaying) {
+        audio
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((error) => {
+            console.error("Error playing audio:", error);
+          });
+      }
+    },
+    pause: () => {
+      const audio = audioRef.current;
+      if (audio && isPlaying) {
+        audio.pause();
+        setIsPlaying(false);
+      }
+    },
+    toggle: () => {
+      toggleMusic();
+    },
+  }));
+
+  useEffect(() => {
+    // Try to autoplay
+    const audio = audioRef.current;
+    if (audio) {
+      // Set volume
+      audio.volume = 0.5;
+
+      audio
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((error) => {
+          // Autoplay was prevented
+          console.log("Autoplay prevented:", error);
+          setIsPlaying(false);
+        });
+    }
+  }, []);
+
+  return (
+    <>
+      <audio ref={audioRef} loop preload="auto">
+        <source src="/music.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <button
+        className="music-toggle"
+        onClick={toggleMusic}
+        aria-label={isPlaying ? "Pause music" : "Play music"}
+      >
+        {isPlaying ? "⏸ Pause Music" : "🎵 Play Music"}
+      </button>
+    </>
+  );
+});
+
+MusicPlayer.displayName = "MusicPlayer";
+
+export default MusicPlayer;
+
+
+
+------------------
+
+player 2 
+
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
+import "./MusicPlayer.css";
+
+const MusicPlayer = forwardRef((props, ref) => {
+  const audioRef = useRef(null);
+
+  // 🎶 Your playlist
+  const playlist = [
+    "/music1.mp3",
+    "/music2.mpeg",
+    "/music3.mpeg",
+    // "/music4.mp3",
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const playAudio = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio
+      .play()
+      .then(() => setIsPlaying(true))
+      .catch((err) => {
+        console.log("Play blocked:", err);
+        setIsPlaying(false);
+      });
+  };
+
+  const pauseAudio = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.pause();
+    setIsPlaying(false);
+  };
+
+  const toggleMusic = () => {
+    isPlaying ? pauseAudio() : playAudio();
+  };
+
+  // 👉 When one song ends, play the next
+  const handleEnded = () => {
+    setCurrentIndex((prev) => (prev + 1) % playlist.length);
+  };
+
+  // 👉 Load & play whenever track changes
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.src = playlist[currentIndex];
+    audio.volume = 0.5;
+
+    if (isPlaying) {
+      playAudio();
+    }
+  }, [currentIndex]);
+
+  // Try autoplay once (browser may block it)
+  useEffect(() => {
+    playAudio();
+  }, []);
+
+  useImperativeHandle(ref, () => ({
+    play: playAudio,
+    pause: pauseAudio,
+    toggle: toggleMusic,
+  }));
+
+  return (
+    <>
+      <audio
+        ref={audioRef}
+        preload="auto"
+        onEnded={handleEnded}
+      />
+
+      <button
+        className="music-toggle"
+        onClick={toggleMusic}
+        aria-label={isPlaying ? "Pause music" : "Play music"}
+      >
+        {isPlaying ? "⏸ Pause Music" : "🎵 Play Music"}
+      </button>
+    </>
+  );
+});
+
+MusicPlayer.displayName = "MusicPlayer";
+export default MusicPlayer;
+
+
+
+--------------------------
+player 2 css 
+
+
+/* Music Player */
+.music-toggle {
+  position: fixed;
+  right: 25px;
+  top: 25px;
+  top: max(env(safe-area-inset-top, 25px), 25px);
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.98);
+  color: #e91e63;
+  border: 2px solid #e91e63;
+  padding: 12px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: all;
+}
+
+.music-toggle:hover {
+  background: #e91e63;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(233, 30, 99, 0.4);
+}
+
+.music-toggle:active {
+  transform: scale(0.98);
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .music-toggle {
+    right: 15px;
+    top: 15px;
+    top: max(env(safe-area-inset-top, 15px), 15px);
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .music-toggle {
+    right: 12px;
+    top: 12px;
+    top: max(env(safe-area-inset-top, 12px), 12px);
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+}
+
