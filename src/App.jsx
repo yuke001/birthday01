@@ -2,14 +2,14 @@ import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { useRef, useState } from "react";
 import "./App.css";
-import CelebrationPage from "./components/CelebrationPage";
+// import CelebrationPage from "./components/CelebrationPage";
 import Countdown from "./components/Countdown";
-import Effects from "./components/Effects";
-import Gallery from "./components/Gallery";
-import Hearts from "./components/Hearts";
-import MessageCard from "./components/MessageCard";
-import MusicPlayer from "./components/MusicPlayer";
-import HeartTrail from "./components/HeartTrail";
+// import Effects from "./components/Effects";
+// import Gallery from "./components/Gallery";
+// import Hearts from "./components/Hearts";
+// import MessageCard from "./components/MessageCard";
+// import MusicPlayer from "./components/MusicPlayer";
+// import HeartTrail from "./components/HeartTrail";
 
 gsap.registerPlugin(ScrollToPlugin);
 
