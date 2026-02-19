@@ -1,4 +1,4 @@
-/* 
+
 import { useEffect, useState } from "react";
 import "./Countdown.css";
 
@@ -52,7 +52,6 @@ function Countdown({ onBirthdayReached, birthdayReached }) {
   };
 
   // ... (rest of the original UI logic)
-*/
 
 // NEW CENTERED UI
 function Countdown() {
